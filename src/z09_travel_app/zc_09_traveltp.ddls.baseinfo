@@ -6,9 +6,14 @@
 "ZR_09_TRAVELTP"
 ],
 "ASSOCIATED":
-[],
+[
+"ZC_09_BOOKINGTP",
+"ZR_09_BOOKINGTP"
+],
 "BASE":
-[],
+[
+"ZR_09_TRAVELTP"
+],
 "ANNO_REF":
 [],
 "SCALAR_FUNCTION":
