@@ -14,9 +14,7 @@ define view entity ZR_09_TravelTP
       CustomerId,
       BeginDate,
       EndDate,
-      @Semantics.amount.currencyCode: 'CurrencyCode'
       BookingFee,
-      @Semantics.amount.currencyCode: 'CurrencyCode'
       TotalPrice,
       CurrencyCode,
       Description,
