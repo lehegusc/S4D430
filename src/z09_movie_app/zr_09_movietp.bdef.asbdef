@@ -1,0 +1,50 @@
+managed implementation in class zbp_09_movietp unique;
+strict ( 2 );
+
+define behavior for ZR_09_MOVIETP alias Movie
+persistent table zabap_movie_a
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create ( authorization : global );
+  update;
+  delete;
+  association _Ratings { create; }
+
+  field ( readonly ) MovieUuid;
+
+  mapping for zabap_movie_a corresponding {
+    Genre = genre;
+    ImageUrl = image_url;
+    MovieUuid = movie_uuid;
+    PublishingYear = publishing_year;
+    RuntimeInMin = runtime_in_min;
+    Title = title;
+
+  }
+
+}
+
+define behavior for ZR_09_RatingTP alias Rating
+persistent table zabap_rating_a
+lock dependent by _Movie
+authorization dependent by _Movie
+//etag master <field_name>
+{
+  update;
+  delete;
+  association _Movie;
+
+  field ( readonly ) MovieUuid;
+
+  mapping for zabap_rating_a corresponding {
+    MovieUuid = movie_uuid;
+    Rating = rating;
+    UserName = user_name;
+    RatingUuid = rating_uuid;
+
+  }
+
+
+}

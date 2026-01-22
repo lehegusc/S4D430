@@ -9,6 +9,7 @@
 @Search.searchable: true
 
 define root view entity ZC_09_TravelTP
+  provider contract transactional_query
   as projection on ZR_09_TravelTP
 
 {
@@ -31,6 +32,11 @@ define root view entity ZC_09_TravelTP
       CreatedAt,
       LastChangedBy,
       LastChangedAt,
+      
+      /* Transient */
+      
+      StatusCriticality,
+      CustomerName,
       
       /* Associations */
       _Bookings : redirected to composition child ZC_09_BookingTP

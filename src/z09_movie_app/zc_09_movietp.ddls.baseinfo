@@ -3,6 +3,7 @@
 {
 "FROM":
 [
+"ZI_09_GENRETEXT",
 "ZR_09_MOVIETP"
 ],
 "ASSOCIATED":
