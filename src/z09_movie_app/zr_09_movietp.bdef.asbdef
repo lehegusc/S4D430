@@ -12,21 +12,32 @@ authorization master ( instance )
   delete;
   association _Ratings { create; }
 
-  field ( readonly ) MovieUuid;
+  field ( readonly, numbering : managed ) MovieUuid;
+  field ( mandatory : create ) Title, RuntimeInMin, PublishingYear, Genre;
+  field ( readonly : update ) Title, RuntimeInMin, PublishingYear, Genre;
+  field (readonly ) CreatedAt, CreatedBy, LastChangedAt, LastChangedBy ;
 
-  mapping for zabap_movie_a corresponding {
-    Genre = genre;
-    ImageUrl = image_url;
-    MovieUuid = movie_uuid;
-    PublishingYear = publishing_year;
-    RuntimeInMin = runtime_in_min;
-    Title = title;
+  validation ValidateGenre on save { create; }
 
-  }
+  action RateMovie parameter ZA_09_Rating; //result [1] $self;
+
+
+  mapping for zabap_movie_a corresponding
+    {
+      ImageUrl       = image_url;
+      MovieUuid      = movie_uuid;
+      PublishingYear = publishing_year;
+      RuntimeInMin   = runtime_in_min;
+      CreatedAt      = created_at;
+      CreatedBy      = created_by;
+      LastChangedAt  = last_changed_at;
+      LastChangedBy  = last_changed_by;
+    }
 
 }
 
 define behavior for ZR_09_RatingTP alias Rating
+
 persistent table zabap_rating_a
 lock dependent by _Movie
 authorization dependent by _Movie
@@ -36,15 +47,21 @@ authorization dependent by _Movie
   delete;
   association _Movie;
 
-  field ( readonly ) MovieUuid;
+  field ( readonly, numbering : managed ) RatingUuid;
+  field ( readonly ) MovieUuid, RatingDate, UserName;
 
-  mapping for zabap_rating_a corresponding {
-    MovieUuid = movie_uuid;
-    Rating = rating;
-    UserName = user_name;
-    RatingUuid = rating_uuid;
+  determination DetermineUserName on save { create; }
 
-  }
+  determination DetermineRatingDate on save { create; }
+
+
+  mapping for zabap_rating_a corresponding
+    {
+      MovieUuid  = movie_uuid;
+      RatingDate = rating_date;
+      UserName   = user_name;
+      RatingUuid = rating_uuid;
+    }
 
 
 }
